@@ -20,7 +20,13 @@ public interface DataCenter {
 	 */
 	public ReturnType loginGetInfo(EmailAddr e);
 	
-	public ReturnType setUserInfo(UserInfo b);
+	/**
+	 * 将ID为uid的用户的存于服务器的信息（BaseUserInfo）更新为b
+	 * @param uid 用户ID
+	 * @param b 新的用户信息
+	 * @return
+	 */
+	public ReturnType setBaseUserInfo(ID uid, BaseUserInfo b);
 	
 	/**
 	 * uid1增加同步联系人uid2
@@ -31,6 +37,12 @@ public interface DataCenter {
 	 */
 	public ReturnType addSynRelationship(ID uid1, ID uid2, int visibility);
 	
+	/**
+	 * uid1删除同步联系人uid2
+	 * @param uid1 实行该操作的用户
+	 * @param uid2 同步联系人的ID
+	 * @return
+	 */
 	public ReturnType removeSynRelationship(ID uid1, ID uid2);
 	
 	/**
@@ -42,6 +54,12 @@ public interface DataCenter {
 	 */
 	public ReturnType addPerRelationship(ID uid1, ID uid2, Permission permission);
 
+	/**
+	 * 删除被授权联系人关系，（从uid1到uid2)
+	 * @param uid1 实行该操作的用户
+	 * @param uid2 被授权联系人的ID
+	 * @return
+	 */
 	public ReturnType removePerRelationship(ID uid1, ID uid2);
 	
 	/**
@@ -53,15 +71,26 @@ public interface DataCenter {
 	
 	/**
 	 * 将用户uid加入群组g中，uid给g的权限为permission
-	 * @param g
-	 * @param uid
-	 * @param permission
+	 * @param g 群组
+	 * @param uid 需要添加的用户ID
+	 * @param permission ID为uid的用户给群组内用户的权限
 	 * @return
 	 */
 	public ReturnType addToGroup(Group g, ID uid, Permission permission);
 	
+	/**
+	 * 将用户uid从群组g中删除
+	 * @param g 群组
+	 * @param uid 需要删除的用户ID
+	 * @return
+	 */
 	public ReturnType removeFromGroup(Group g, ID uid);
 	
+	/**
+	 * 删除群组g
+	 * @param g 群组
+	 * @return
+	 */
 	public ReturnType removeGroup(Group g);
 	
 	/**
@@ -81,6 +110,11 @@ public interface DataCenter {
 	 */
 	public ReturnType removeMessageBuffer(ID uid, Message msg);
 	
+	/**
+	 * 获得用户uid的缓存了的未发送到消息（比如申请、邀请、通知等）。
+	 * @param uid 
+	 * @return
+	 */
 	public ReturnType getMessageBuffer(ID uid);
 	
 	/**
