@@ -1,5 +1,5 @@
 package serverdatacenter;
-import java.util.ArrayList;
+import java.util.List;
 import entity.*;
 import algorithm.*;
 
@@ -136,7 +136,7 @@ public interface DataCenter {
 	 * @param idList
 	 * @return
 	 */
-	public ReturnType getUsersInfo(ArrayList<ID> idList);
+	public ReturnType getUsersInfo(List<ID> idList);
 	
 	/**
 	 * 返回uid到targetIDList中所有ID的授权
@@ -145,7 +145,7 @@ public interface DataCenter {
 	 * @param targetIDList
 	 * @return
 	 */
-	public ReturnType getPermissions(ID uid, ArrayList<ID> targetIDList);
+	public ReturnType getPermissions(ID uid, List<ID> targetIDList);
 	
 	/**
 	 * 设定用户uid1到用户uid2的权限
@@ -178,7 +178,7 @@ public interface DataCenter {
 	 * @param targetIDList
 	 * @return
 	 */
-	public ReturnType getVisibilities(ID uid, ArrayList<ID> targetIDList);
+	public ReturnType getVisibilities(ID uid, List<ID> targetIDList);
 	
 	/**
 	 * 对于搜索的info，返回所有匹配上的用户
