@@ -1,6 +1,7 @@
 package serverdatacenter;
 import java.util.List;
 import entity.*;
+import entity.infoField.*;
 import algorithm.*;
 
 public interface DataCenter {
