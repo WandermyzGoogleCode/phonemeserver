@@ -2,6 +2,7 @@ package serverdatacenter;
 import java.util.List;
 import entity.*;
 import entity.infoField.*;
+import entity.message.Message;
 import algorithm.*;
 
 public interface DataCenter {
