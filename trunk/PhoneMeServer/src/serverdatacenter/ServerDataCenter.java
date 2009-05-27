@@ -5,15 +5,16 @@ import entity.infoField.*;
 import entity.message.Message;
 import algorithm.*;
 
-public interface DataCenter {
+public interface ServerDataCenter {
 	/**
-	 * 将e绑定到该注册用户的id上，以便登录的时候可以通过e来得到id
-	 * id是由系统自动生成的，一个id可以对应到多个emailAddr上，这个是由用户自己定的
+	 * 将info上的IdenticalInfoField绑定到该注册用户的id上，以便登录的时候可以通过
+	 * 它们来得到id。id是由系统自动生成的，一个id可以对应到多个IdenticalInfoField
+	 * pwd为用户的密码
 	 * @param e
 	 * @param info
 	 * @return
 	 */
-	public ReturnType register(EmailAddr e, BaseUserInfo info);
+	public ReturnType register(BaseUserInfo info, Password pwd);
 
 	/**
 	 * 返回e对应用户的id和加密后的密码
@@ -106,18 +107,22 @@ public interface DataCenter {
 	
 	/**
 	 * 把用用户uid的一个未发送到消息（比如申请、邀请、通知等）从缓存中删除。
+	 * 
+	 * 返回的类中有两个值，一个指示成功与否(BoolInfo.isTrue())，一个显示
+	 * 相应的解释（比如错误信息）
 	 * @param uid
 	 * @param msg
 	 * @return
 	 */
-	public ReturnType removeMessageBuffer(ID uid, Message msg);
+	public BoolInfo removeMessageBuffer(ID uid, Message msg);
 	
 	/**
 	 * 获得用户uid的缓存了的未发送到消息（比如申请、邀请、通知等）。
+	 * 返回所以该用户的消息
 	 * @param uid 
 	 * @return
 	 */
-	public ReturnType getMessageBuffer(ID uid);
+	public List<Message> getMessageBuffer(ID uid);
 	
 	/**
 	 * 返回uid用户所有同步联系人的ID
