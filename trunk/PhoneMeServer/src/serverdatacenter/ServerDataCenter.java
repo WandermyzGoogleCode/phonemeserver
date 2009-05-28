@@ -17,11 +17,13 @@ public interface ServerDataCenter {
 	public ReturnType register(BaseUserInfo info, Password pwd);
 
 	/**
-	 * 返回e对应用户的id和加密后的密码
+	 * 如果idField对应用户的密码和pwd相等，则
+	 * 返回idField对应用户的id，否则返回一个nullID，表示
+	 * 用户不存在或者密码不相等。
 	 * @param e
 	 * @return
 	 */
-	public ReturnType loginGetInfo(EmailAddr e);
+	public ID loginGetInfo(IdenticalInfoField idField, Password pwd);
 	
 	/**
 	 * 将ID为uid的用户的存于服务器的信息（BaseUserInfo）更新为b
@@ -143,7 +145,7 @@ public interface ServerDataCenter {
 	 * @param idList
 	 * @return
 	 */
-	public ReturnType getUsersInfo(List<ID> idList);
+	public List<BaseUserInfo> getUsersInfo(List<ID> idList);
 	
 	/**
 	 * 返回uid到targetIDList中所有ID的授权
@@ -193,6 +195,14 @@ public interface ServerDataCenter {
 	 * @return
 	 */
 	public ReturnType searchUser(BaseUserInfo info);
+	
+	/**
+	 * 根据IdenticalInfoField搜索用户的ID
+	 * 若为找到匹配用户，则返回nullID，不要返回null
+	 * @param idInfo
+	 * @return
+	 */
+	public ID searchUserID(IdenticalInfoField idInfo);
 	
 	/**
 	 * 设定用户uid1到用户uid2的关系可见性
