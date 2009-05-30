@@ -3,7 +3,6 @@ import java.util.List;
 import entity.*;
 import entity.infoField.*;
 import entity.message.Message;
-import algorithm.*;
 
 public interface ServerDataCenter {
 	/**
@@ -137,7 +136,15 @@ public interface ServerDataCenter {
 	 * @param uid
 	 * @return
 	 */
-	public ReturnType getPerContactID(ID uid);
+	public List<ID> getPerContactID(ID uid);
+	
+	/**
+	 * 判断id1是否是id2的被授权联系人。
+	 * 为了效率，所以专门设置这样一个函数，以提高相应
+	 * 操作的速度。
+	 * @return
+	 */
+	public boolean isPerContact(ID id1, ID id2);
 	
 	/**
 	 * 返回idList中所有ID对应的用户的BaseUserInfo
@@ -154,31 +161,32 @@ public interface ServerDataCenter {
 	 * @param targetIDList
 	 * @return
 	 */
-	public ReturnType getPermissions(ID uid, List<ID> targetIDList);
+	public List<Permission> getPermissions(ID uid, List<ID> targetIDList);
 	
 	/**
-	 * 设定用户uid1到用户uid2的权限
+	 * 设定id1到id2的权限
+	 * 其中id可能是用户ID，也可能是群组ID，甚至是代表全局的ID，
+	 * 不过这些数据库不用关心
 	 * @param uid1
 	 * @param uid2
 	 * @return
 	 */
-	public ReturnType setPermission(ID uid1, ID uid2, Permission permission);
-	
+	public ReturnType setPermission(ID id1, ID id2, Permission permission);
+
 	/**
-	 * 修改用户uid到群组g的权限
+	 * 返回用户uid所有加入的群组
 	 * @param uid
-	 * @param g
 	 * @return
 	 */
-	public ReturnType setGroupPermission(ID uid, Group g);
-	
+	public List<Group> getGroups(ID uid);
+
 	/**
-	 * 返回用户uid对群组g所定义的权限
-	 * @param uid
-	 * @param g
+	 * 获取群组ID为gid的群组
+	 * 不存在返回null
+	 * @param gid
 	 * @return
 	 */
-	public ReturnType getGroupPermission(ID uid, Group g);
+	public Group getGroup(ID gid);
 	
 	/**
 	 * 返回uid到targetIDList中所有ID的关系可见性
@@ -194,7 +202,14 @@ public interface ServerDataCenter {
 	 * @param info
 	 * @return
 	 */
-	public ReturnType searchUser(BaseUserInfo info);
+	public List<BaseUserInfo> searchUser(BaseUserInfo info);
+	
+	/**
+	 * 对于搜索的info，返回所有匹配上的组
+	 * @param g
+	 * @return
+	 */
+	public List<Group> searchGroup(Group info);
 	
 	/**
 	 * 根据IdenticalInfoField搜索用户的ID
