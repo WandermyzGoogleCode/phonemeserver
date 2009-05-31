@@ -129,7 +129,7 @@ public interface ServerDataCenter {
 	 * 返回uid用户所有同步联系人的ID
 	 * @return
 	 */
-	public ReturnType getSynContactID(ID uid);
+	public List<ID> getSynContactID(ID uid);
 
 	/**
 	 * 返回uid用户所有被授权联系人的ID
@@ -195,7 +195,7 @@ public interface ServerDataCenter {
 	 * @param targetIDList
 	 * @return
 	 */
-	public ReturnType getVisibilities(ID uid, List<ID> targetIDList);
+	public List<Integer> getVisibilities(ID uid, List<ID> targetIDList);
 	
 	/**
 	 * 对于搜索的info，返回所有匹配上的用户
