@@ -18,7 +18,7 @@ public class PwdTable {
 			statement.execute(sql);
 		}
 		catch (Exception e) {
-			sql = "CREATE TABLE Pwd(uid BIGINT NOT NULL, pwd TINYBLOB NOT NULL, PRIMARY KEY(uid));";
+			sql = "CREATE TABLE Pwd(uid BIGINT NOT NULL, pwd TINYBLOB NOT NULL, PRIMARY KEY(uid)) CHARACTER SET gbk COLLATE gbk_bin;";
 			statement.execute(sql);
 		}
 	}

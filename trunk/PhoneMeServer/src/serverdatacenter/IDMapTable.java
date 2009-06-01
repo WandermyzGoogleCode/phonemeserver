@@ -18,8 +18,7 @@ public class IDMapTable {
 			statement.execute(sql);
 		}
 		catch (Exception e) {
-			sql = "CREATE TABLE idMap(idField VARCHAR(120) NOT NULL, uid BIGINT NOT NULL, PRIMARY KEY(idField));";
-			System.out.println(sql);//TODO Test
+			sql = "CREATE TABLE idMap(idField VARCHAR(120) NOT NULL, uid BIGINT NOT NULL, PRIMARY KEY(idField)) CHARACTER SET gbk COLLATE gbk_bin;";
 			statement.execute(sql);
 		}
 	}

@@ -1,4 +1,5 @@
 package serverdatacenter;
+import java.sql.SQLException;
 import java.util.List;
 import entity.*;
 import entity.infoField.*;
@@ -38,8 +39,9 @@ public interface ServerDataCenter {
 	 * @param uid1 实行该操作的用户
 	 * @param uid2 同步联系人的ID
 	 * @return
+	 * @throws SQLException 
 	 */
-	public ReturnType addSynRelationship(ID uid1, ID uid2, int visibility);
+	public ReturnType addSynRelationship(ID uid1, ID uid2, int visibility) throws SQLException;
 	
 	/**
 	 * uid1删除同步联系人uid2
@@ -55,8 +57,9 @@ public interface ServerDataCenter {
 	 * @param uid1 实行该操作的用户
 	 * @param uid2 被授权联系人的ID
 	 * @return
+	 * @throws SQLException 
 	 */
-	public ReturnType addPerRelationship(ID uid1, ID uid2, Permission permission);
+	public ReturnType addPerRelationship(ID uid1, ID uid2, Permission permission) throws SQLException;
 
 	/**
 	 * 删除被授权联系人关系，（从uid1到uid2)
@@ -103,8 +106,9 @@ public interface ServerDataCenter {
 	 * @param uid
 	 * @param msg
 	 * @return
+	 * @throws SQLException 
 	 */
-	public ReturnType addMessageBuffer(ID uid, Message msg);
+	public ReturnType addMessageBuffer(ID uid, Message msg) throws SQLException;
 	
 	/**
 	 * 把用用户uid的一个未发送到消息（比如申请、邀请、通知等）从缓存中删除。
@@ -122,8 +126,9 @@ public interface ServerDataCenter {
 	 * 返回所以该用户的消息
 	 * @param uid 
 	 * @return
+	 * @throws SQLException 
 	 */
-	public List<Message> getMessageBuffer(ID uid);
+	public List<Message> getMessageBuffer(ID uid) throws SQLException;
 	
 	/**
 	 * 返回uid用户所有同步联系人的ID

@@ -23,6 +23,7 @@ import entity.ReturnType;
 import entity.UserInfo;
 import entity.infoField.IdenticalInfoField;
 import entity.infoField.IndexedInfoField;
+import entity.message.GroupUpdatedMessage;
 import entity.message.Message;
 
 public class ServerDataCenterImp implements ServerDataCenter {
@@ -53,8 +54,6 @@ public class ServerDataCenterImp implements ServerDataCenter {
 	 * 构造函数，进行初始化类成员变量，若表不存在则建表等操作
 	 */
 	private ServerDataCenterImp() {
-		// TODO NEXT
-
 		// 建表
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -84,20 +83,22 @@ public class ServerDataCenterImp implements ServerDataCenter {
 	}
 
 	@Override
-	public ReturnType addMessageBuffer(ID uid, Message msg) {
-		// TODO Auto-generated method stub
+	public ReturnType addMessageBuffer(ID uid, Message msg) throws SQLException {
+		messageTable.addMessage(msg.getID(), uid, msg);
 		return null;
 	}
 
 	@Override
-	public ReturnType addPerRelationship(ID uid1, ID uid2, Permission permission) {
-		// TODO Auto-generated method stub
+	public ReturnType addPerRelationship(ID uid1, ID uid2, Permission permission) throws SQLException{
+		perRelationTable.setRelation(uid1, uid2);
+		permissionTable.setPermission(uid1, uid2, permission);
 		return null;
 	}
 
 	@Override
-	public ReturnType addSynRelationship(ID uid1, ID uid2, int visibility) {
-		// TODO Auto-generated method stub
+	public ReturnType addSynRelationship(ID uid1, ID uid2, int visibility) throws SQLException{
+		synRelationTable.setRelation(uid1, uid2);
+		visibilityTable.setVisibility(uid1, uid2, visibility);
 		return null;
 	}
 
@@ -120,9 +121,8 @@ public class ServerDataCenterImp implements ServerDataCenter {
 	}
 
 	@Override
-	public List<Message> getMessageBuffer(ID uid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> getMessageBuffer(ID uid) throws SQLException {
+		return messageTable.getAllMessages(uid);
 	}
 
 	@Override
@@ -246,6 +246,25 @@ public class ServerDataCenterImp implements ServerDataCenter {
 	}
 
 	public static void main(String args[]){
-		ServerDataCenterImp.getInstance();
+		ServerDataCenter center = ServerDataCenterImp.getInstance();
+		//TODO TEST
+		try {
+			//TEST MESSAGE
+			/*Message im = new GroupUpdatedMessage(null, "test", new ID(888));
+			center.addMessageBuffer(new ID(198979), im);
+			List<Message> list = center.getMessageBuffer(new ID(198979));
+			Message m = list.get(0);
+			System.out.println("lala");*/
+			
+			//TEST
+			center.addPerRelationship(new ID(123), new ID(456), new Permission());
+			center.addPerRelationship(new ID(123), new ID(456), new Permission());
+			center.addSynRelationship(new ID(123), new ID(456), 10);
+			center.addSynRelationship(new ID(123), new ID(456), 5);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			e.printStackTrace();
+		}
 	}
 }
