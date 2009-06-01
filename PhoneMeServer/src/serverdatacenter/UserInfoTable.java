@@ -61,7 +61,7 @@ public class UserInfoTable {
 				}
 			sql += ")";
 
-			sql += ", PRIMARY KEY(uid))";
+			sql += ", PRIMARY KEY(uid)) CHARACTER SET gbk COLLATE gbk_bin;";
 			statement.executeUpdate(sql);
 		}
 	}
